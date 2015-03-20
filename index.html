@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Bill Eberly</title>
+	<script src="http://billeberly.com/js/jquery.min.js"></script>
+	<script src="http://billeberly.com/textblog.js"></script>
+	<script src="http://billeberly.com/js/jquery-ui-1.8.22.custom/js/jquery-ui-1.8.22.custom.min.js"></script>
+	<link rel="stylesheet" type="text/css" src="http://billeberly.com/js/jquery-ui-1.8.22.custom/css/custom-theme/jquery-ui-1.8.22.custom.css"></link>
+	<!-- Yes, I know this css is bad and these should be in external files. But nobody actually comes here, so I don't care that much :) -->
+	<style>
+
+		/* Force a vertical scroll bar to avoid skipping on page with scrollbars */
+		html {
+			overflow-y: scroll; 
+		}
+		body{
+			font-family: Helvetica;
+			font-size:12pt;
+		}
+		#header div{
+			display:inline;
+		}
+		h2, h3, h4{
+			display:inline;
+		}
+		#tabWrapper{
+			float:right;
+			padding: 3px 0 0 0 
+		}
+		#tabWrapper div{
+			padding: 0 4px;
+			cursor:pointer;
+		}
+		#outerWrapper{
+			margin: 0px auto;
+			width: 500px;
+			min-width:310px;
+		}
+		#header{
+			margin-bottom: 20px;
+		}
+		#tab2, #tab3{
+			display: none;
+		}
+
+		.underline {
+			padding-bottom: 5px;
+			border-bottom: 4px solid #2B8CED;
+ 		}
+
+		.postContainer{
+ 			margin-bottom:25px;
+		}
+		.postTitle{
+			font-weight:bold;
+		}
+		.timestamp{
+			font-size: 10pt;
+		}
+	
+		/* Baby's first responsive design */
+		@media screen and (max-width: 768px) {
+			#outerWrapper{
+				width:99%;
+			}
+		}
+
+		@media screen and (max-width: 360px){
+			h2{
+				font-size: 16pt;
+				font-weight: bold;
+			}
+		}
+	</style>
+	<script>
+		$(document).ready(function() {
+
+			// TODO: come on, you know this is just embarassing, right?
+
+		     $('#tab1link').click(function(){
+		     	$('#tab1link span').addClass('underline');
+		     	$('#tab2link span').removeClass('underline');
+		     	$('#tab3link span').removeClass('underline');
+	     		$('#tab2').hide();
+	     		$('#tab3').hide();
+				$('#tab1').show('fade', 100);
+		     });
+
+		     $('#tab2link').click(function(){
+		     	$('#tab2link span').addClass('underline');
+		     	$('#tab1link span').removeClass('underline');
+		     	$('#tab3link span').removeClass('underline');
+	     		$('#tab1').hide();
+	     		$('#tab3').hide();
+				$('#tab2').show('fade',100);
+		     });
+
+		     $('#tab3link').click(function(){
+		     	$('#tab3link span').addClass('underline');
+		     	$('#tab1link span').removeClass('underline');
+		     	$('#tab2link span').removeClass('underline');
+	     		$('#tab1').hide();
+	     		$('#tab2').hide();
+				$('#tab3').show('fade',100);
+		     });
+
+			//Do blog stuff
+			$('#blogContainer').textBlog();
+
+			
+		});
+	</script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<div id="outerWrapper">
+	<div id="header">
+		<div><h2>Bill Eberly</h2></div>
+		<div id="tabWrapper">
+			<div id="tab1link"><span class="underline">About Me</span></div>
+			<div id="tab2link"><span>Blog</span></div>	
+			<div id="tab3link"><span>Projects</span></div>	
+		</div>
+	</div>
+	<div id="tabs">
+
+		<div id="tab1">
+			<div>I'm Bill Eberly, a software engineer from Omaha, NE. I have a bachelor's degree in Computer Science from the <a href="http://unomaha.edu">University of Nebraska at Omaha</a>. I'm interested in web development, drums, and Legos. You can contact me at bill.eberly@gmail.com</div>
+		</div>
+
+
+		<div id="tab2">
+			<div id="blogContainer"></div>
+
+
+		</div>
+
+		<div id="tab3">
+			<h4>Is House A Rerun?</h4>
+			<div>
+				<p>
+					Is House A Rerun is a clone of the site <a href="http://islostarepeat.com">islostarepeat.com</a> for <a href="http://fox.com/house">House</a>. It uses <a href="http://mc2xml.hosterbox.net/">mc2xml</a> to generate a xmltv file, which gets parsed by a python script that writes the html file. The script takes a while to run, as the xmltv file can be hundreds of thousands of lines long, so it just runs weekly via a cron job.
+				</p>
+				<p>
+				If you want to change the script for another tv show, just set up mc2xml to grab the correct channel(s) and change the first few lines to reflect what show you want, the day it airs, and the channel it's on.
+				</p>
+				<p class="dl"><a href="http://billeberly.com/uploads/house.zip">Download</a></p></div>
+
+			<h4>WebOS Forensics</h4>
+			<div>
+				<p>
+					I've created a set forensics collection scripts for WebOS, based on a paper and presentation that I recently gave for a computer forensics class. They are able to image and mount each partition, collect evidence, and create a set of html reports.
+				</p>
+				<p>
+					Requirements:
+					<ul>
+						<li>A WebOS Phone</li>
+						<li>Linux environment</li>
+						<li>WebOS SDK</li>
+						<li>sleuthkit package, for searching slack space</li>
+						<li>pv package, for providing a progress bar while creating images</li>
+						<li>Python 2.6 or greater</li>
+					</ul>
+				</p>
+				<p>
+					I have tested these using Ubuntu 9.04 and 9.10 and my Palm Pre running WebOS 1.2.x. WebOS has recently been updated to version 1.3.1, so there may be a few minor bugs related to that. I have not tested these using the virtual machine provided with the SDK, though I expect that they would just need a bit of tweaking to work. Any Linux environment is fine, as long as the WebOS SDK can be installed on it. 
+				</p>
+				<p>
+					There are a few bugs and shortcomings with this set of scripts:
+					
+					<ul>
+					<li>Timestamps stored on the phone are assumed to be from the same time zone as the host computer.</li>
+					
+					<li>Forwarded emails, replies, and emails with more than one recipient may show up multiple times. </li>
+					
+					<li>May have trouble handling Unicode characters in some fields.</li>
+
+					Feel free to email me if you have questions or requests.
+					</ul>
+					<p>Released under GPLv2</p>
+				</p>
+				<p>
+					<a href='http://billeberly.com/uploads/WebOS-Forensics-Scripts.zip'>Download</a>
+				</p>
+			</div>
+		</div>
+
+		
+	</div>
+</div>
+
+<script>
+	(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			  ga('create', 'UA-332158-3', 'billeberly.com');
+			  ga('send', 'pageview');
+</script>
+</body>
+</html>
