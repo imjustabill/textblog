@@ -5,8 +5,8 @@
 
 		this.each(function(){
 
-			//TODO: make sure we're not already loading more
-			$(window).scroll(function(){ // TODO: or on load!
+			// Auto load posts once we reach the bottom of the page
+			$(window).scroll(function(){!
 				var maxDistFromBottom = 100;
 
 				if ($(window).scrollTop() + $(window).height() > 
@@ -23,7 +23,7 @@
 			var baseUrl = 'http://billeberly.com/blog';
 			var allPosts = [];
 			var useMarkdown = true;
-			var morePosts = false; // TODO: need to make sure we dont keep trying to get more when teh user scrolls
+			var morePosts = false; 
 			var startPost = 0;
 
 			loadIndex();
@@ -48,7 +48,6 @@
 
 			function fetchPage () {
 	
-				//TODO: rename filename structure
 				// TODO: why the heck is this a for loop?
 				for(;startPost  < pageSize*pageNum && startPost < allPosts.length; ++startPost){
 					var postContainer = $('<div class="postContainer"></div>');
