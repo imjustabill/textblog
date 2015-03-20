@@ -28,6 +28,7 @@
 
 			loadIndex();
 
+			// Load the list of posts from the apache index page
 			function loadIndex() {
 				// Get list of posts from directory index
 				$.ajax({
@@ -46,8 +47,8 @@
 				});
 			}
 
-			function fetchPage () {
-	
+			// Fetches the next page of .blog files
+			function fetchPage () {	
 				// TODO: why the heck is this a for loop?
 				for(;startPost  < pageSize*pageNum && startPost < allPosts.length; ++startPost){
 					var postContainer = $('<div class="postContainer"></div>');
@@ -64,6 +65,7 @@
 				}
 			}
 
+			// Fetch the .blog file and build a post from it
 			function buildPost(postContainer, fileName){
 				$.ajax({
 					url: baseUrl + '/' + fileName,
