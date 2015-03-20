@@ -6,7 +6,7 @@
 		this.each(function(){
 
 			// Auto load posts once we reach the bottom of the page
-			$(window).scroll(function(){!
+			$(window).scroll(function(){
 				var maxDistFromBottom = 100;
 
 				if ($(window).scrollTop() + $(window).height() > 
